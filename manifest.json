@@ -1,0 +1,38 @@
+{
+  "id": "./",
+  "name": "RemindMe - Smart Calendar & Reminder",
+  "short_name": "RemindMe",
+  "description": "Make Every Moment Count. Manage your reminders, events, and daily tasks with RemindMe.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "categories": [
+    "productivity",
+    "utilities",
+    "lifestyle"
+  ],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "assets/icons/favicon.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

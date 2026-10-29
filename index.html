@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080807" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>RemindMe | Make Every Moment Count</title>
+
+  <meta
+    name="description"
+    content="Plan your days, manage reminders, and never forget an important moment with RemindMe."
+  />
+
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
+  <link rel="manifest" href="manifest.json" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/calendar.css" />
+  <link rel="stylesheet" href="css/reminders.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+
+<body>
+  <div class="app" id="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <a href="#dashboard" class="brand" aria-label="RemindMe home">
+        <img
+          src="assets/images/logo.png"
+          alt=""
+          class="brand-logo-image"
+          width="44"
+          height="44"
+        />
+
+        <span class="brand-copy">
+          <span class="brand-name">RemindMe</span>
+          <span class="brand-tagline">Make Every Moment Count</span>
+        </span>
+      </a>
+
+      <p class="nav-label">WORKSPACE</p>
+
+      <nav class="nav-menu" aria-label="Main navigation">
+        <a href="#dashboard" class="nav-link active" data-view="dashboard">
+          <span class="nav-icon" aria-hidden="true">⌂</span>
+          <span class="nav-text">Dashboard</span>
+        </a>
+
+        <a href="#calendar-section" class="nav-link" data-view="calendar">
+          <span class="nav-icon" aria-hidden="true">▦</span>
+          <span class="nav-text">Calendar</span>
+        </a>
+
+        <a href="#reminders-section" class="nav-link" data-view="upcoming">
+          <span class="nav-icon" aria-hidden="true">◷</span>
+          <span class="nav-text">Upcoming</span>
+          <span class="nav-count" id="upcomingBadge">0</span>
+        </a>
+
+        <a href="#reminders-section" class="nav-link" data-view="completed">
+          <span class="nav-icon" aria-hidden="true">✓</span>
+          <span class="nav-text">Completed</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="quote-card">
+          <span class="quote-mark" aria-hidden="true">“</span>
+          <p>Small steps every day lead to big achievements.</p>
+          <span class="quote-caption">YOUR DAILY INSPIRATION</span>
+        </div>
+
+        <div class="sidebar-footer">
+          Made with care <span aria-hidden="true">✦</span> RemindMe
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN DASHBOARD -->
+    <main class="main" id="dashboard">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div class="welcome-section">
+          <p class="welcome-label">YOUR PERSONAL PLANNER</p>
+          <h1 class="page-title">Plan your moments.</h1>
+          <p class="page-subtitle" id="todayGreeting">
+            A little planning makes every day better.
+          </p>
+        </div>
+
+        <div class="topbar-actions">
+          <button
+            class="btn btn-primary"
+            id="openReminderButton"
+            type="button"
+          >
+            <span aria-hidden="true">＋</span>
+            <span>Add Reminder</span>
+          </button>
+
+          <!-- GOOGLE AUTHENTICATION -->
+          <div class="auth-area" id="authArea">
+            <button
+              class="btn btn-google"
+              id="googleSignInButton"
+              type="button"
+            >
+              <svg
+                width="19"
+                height="19"
+                viewBox="0 0 48 48"
+                aria-hidden="true"
+              >
+                <path
+                  fill="#EA4335"
+                  d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+                />
+                <path
+                  fill="#4285F4"
+                  d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.92 46.98 31.84 46.98 24.55z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.12.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.87.93 7.52 2.56 10.78l7.97-6.19z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.15 1.45-4.92 2.3-8.18 2.3-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+                />
+              </svg>
+
+              <span id="googleButtonText">Sign in with Google</span>
+            </button>
+
+            <div class="user-profile" id="userProfile" hidden>
+              <img
+                id="userPhoto"
+                class="user-photo"
+                src=""
+                alt="Google profile"
+                referrerpolicy="no-referrer"
+                hidden
+              />
+
+              <span id="userName" class="user-name"></span>
+
+              <button
+                class="btn btn-secondary"
+                id="signOutButton"
+                type="button"
+              >
+                Sign out
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- STATISTICS -->
+      <section class="stats-grid" aria-label="Reminder statistics">
+        <article class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Total Reminders</span>
+            <span class="stat-icon" aria-hidden="true">▤</span>
+          </div>
+          <p class="stat-number" id="totalCount">0</p>
+          <p class="stat-caption">All your saved reminders</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Due Today</span>
+            <span class="stat-icon" aria-hidden="true">◷</span>
+          </div>
+          <p class="stat-number" id="todayCount">0</p>
+          <p class="stat-caption">Keep today's plans on track</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Completed</span>
+            <span class="stat-icon" aria-hidden="true">✓</span>
+          </div>
+          <p class="stat-number" id="completedCount">0</p>
+          <p class="stat-caption">Celebrate every little win</p>
+        </article>
+      </section>
+
+      <!-- MAIN CONTENT -->
+      <div class="content-grid">
+
+        <!-- CALENDAR -->
+        <section
+          class="panel calendar-panel"
+          id="calendar-section"
+          aria-labelledby="calendarHeading"
+        >
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title" id="calendarHeading">Your Calendar</h2>
+              <p class="panel-description">
+                Every important moment, in one place.
+              </p>
+            </div>
+
+            <div class="calendar-toolbar">
+              <button
+                class="small-btn"
+                id="prevMonth"
+                type="button"
+                aria-label="Previous month"
+              >‹</button>
+
+              <h3 class="month-title" id="monthTitle" aria-live="polite">
+                Loading...
+              </h3>
+
+              <button
+                class="small-btn"
+                id="nextMonth"
+                type="button"
+                aria-label="Next month"
+              >›</button>
+
+              <button
+                class="small-btn"
+                id="todayButton"
+                type="button"
+              >Today</button>
+            </div>
+          </div>
+
+          <div class="calendar-content">
+            <div class="calendar-weekdays" aria-hidden="true">
+              <span class="weekday">Sun</span>
+              <span class="weekday">Mon</span>
+              <span class="weekday">Tue</span>
+              <span class="weekday">Wed</span>
+              <span class="weekday">Thu</span>
+              <span class="weekday">Fri</span>
+              <span class="weekday">Sat</span>
+            </div>
+
+            <div
+              class="calendar-days"
+              id="calendarDays"
+              role="group"
+              aria-label="Calendar dates"
+            >
+              <!-- Calendar dates are generated by calendar.js -->
+            </div>
+
+            <div class="calendar-legend">
+              <span class="legend-item">
+                <span class="legend-dot"></span>
+                General
+              </span>
+
+              <span class="legend-item">
+                <span class="legend-dot coral"></span>
+                Important
+              </span>
+
+              <span class="legend-item">
+                <span class="legend-dot green"></span>
+                Completed
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- REMINDER LIST -->
+        <section
+          class="panel reminders-panel"
+          id="reminders-section"
+          aria-labelledby="remindersHeading"
+        >
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title" id="remindersHeading">Upcoming</h2>
+              <p class="panel-description" id="remindersSubtitle">
+                Your next important moments.
+              </p>
+            </div>
+
+            <button
+              class="icon-button"
+              id="clearSearchButton"
+              type="button"
+              title="Clear search"
+              aria-label="Clear search"
+            >↺</button>
+          </div>
+
+          <div
+            class="reminder-filters"
+            id="reminderFilters"
+            role="group"
+            aria-label="Filter reminders"
+          >
+            <button
+              class="filter-btn active"
+              type="button"
+              data-filter="upcoming"
+              aria-pressed="true"
+            >Upcoming</button>
+
+            <button
+              class="filter-btn"
+              type="button"
+              data-filter="today"
+              aria-pressed="false"
+            >Today</button>
+
+            <button
+              class="filter-btn"
+              type="button"
+              data-filter="completed"
+              aria-pressed="false"
+            >Completed</button>
+          </div>
+
+          <div class="search-box">
+            <input
+              class="search-input"
+              id="searchInput"
+              type="search"
+              placeholder="Search reminders..."
+              aria-label="Search reminders"
+              autocomplete="off"
+            />
+          </div>
+
+          <div
+            class="reminders-list"
+            id="remindersList"
+            aria-live="polite"
+          >
+            <div class="empty-state">
+              <div class="empty-icon" aria-hidden="true">✧</div>
+              <h3>No reminders yet</h3>
+              <p>
+                Create your first reminder and make your day more organized.
+              </p>
+              <button
+                class="btn btn-primary"
+                id="emptyAddButton"
+                type="button"
+              >
+                ＋ Create Reminder
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="bottom-note">
+        Make every moment count. <span aria-hidden="true">✦</span>
+        <p>Your personal space to plan, remember and achieve.</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- ADD / EDIT REMINDER MODAL -->
+  <div
+    class="modal-backdrop"
+    id="reminderModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+    aria-hidden="true"
+  >
+    <section class="modal">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title" id="modalTitle">Create a Reminder</h2>
+          <p class="modal-subtitle">
+            Give your important moments a place in your day.
+          </p>
+        </div>
+
+        <button
+          class="close-modal"
+          id="closeModalButton"
+          type="button"
+          aria-label="Close reminder form"
+        >×</button>
+      </div>
+
+      <form id="reminderForm">
+        <input type="hidden" id="reminderId" name="id" />
+
+        <div class="form-group">
+          <label class="form-label" for="reminderTitle">
+            Reminder title *
+          </label>
+          <input
+            class="form-control"
+            id="reminderTitle"
+            name="title"
+            type="text"
+            maxlength="100"
+            placeholder="e.g. Complete project report"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reminderDescription">
+            Description
+          </label>
+          <textarea
+            class="form-control"
+            id="reminderDescription"
+            name="description"
+            maxlength="1000"
+            placeholder="Add a few details (optional)"
+          ></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="reminderDate">Date *</label>
+            <input
+              class="form-control"
+              id="reminderDate"
+              name="date"
+              type="date"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reminderTime">Time *</label>
+            <div class="time-input-group">
+              <input
+                class="form-control"
+                id="reminderTime"
+                name="time"
+                type="time"
+                value="09:00"
+                required
+              />
+              <select
+                class="form-control ampm-select"
+                id="reminderAmPm"
+                name="ampm"
+                aria-label="Select AM or PM"
+                required
+              >
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="reminderCategory">Category</label>
+            <select
+              class="form-control"
+              id="reminderCategory"
+              name="category"
+            >
+              <option value="general">General</option>
+              <option value="important">Important</option>
+              <option value="personal">Personal</option>
+              <option value="study">Study</option>
+              <option value="work">Work</option>
+              <option value="birthday">Birthday</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reminderRepeat">Repeat</label>
+            <select
+              class="form-control"
+              id="reminderRepeat"
+              name="repeat"
+            >
+              <option value="none">Does not repeat</option>
+              <option value="daily">Every day</option>
+              <option value="weekly">Every week</option>
+              <option value="monthly">Every month</option>
+              <option value="yearly">Every year</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reminderSound">Alert sound</label>
+          <select
+            class="form-control"
+            id="reminderSound"
+            name="sound"
+          >
+            <option value="default">Default sound</option>
+            <option value="silent">Silent</option>
+          </select>
+        </div>
+
+        <p
+          class="form-error"
+          id="formError"
+          role="alert"
+          hidden
+        ></p>
+
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            id="cancelModalButton"
+            type="button"
+          >Cancel</button>
+
+          <button
+            class="btn btn-primary"
+            id="saveReminderButton"
+            type="submit"
+          >Save Reminder</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <!-- NOTIFICATION SETTINGS MODAL -->
+  <div
+    class="modal-backdrop"
+    id="notificationModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="notificationModalTitle"
+    aria-hidden="true"
+  >
+    <section class="modal">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title" id="notificationModalTitle">
+            Notification Settings
+          </h2>
+          <p class="modal-subtitle">
+            Choose how you want RemindMe to alert you.
+          </p>
+        </div>
+
+        <button
+          class="close-modal"
+          id="closeNotificationModal"
+          type="button"
+          aria-label="Close notification settings"
+        >×</button>
+      </div>
+
+      <div class="notification-settings">
+        <p id="notificationPermissionStatus" aria-live="polite">
+          Browser notification permission has not been requested.
+        </p>
+
+        <button
+          class="btn btn-primary btn-full"
+          id="enableNotificationsButton"
+          type="button"
+        >
+          Enable Browser Notifications
+        </button>
+
+        <label class="notification-sound-option" for="enableReminderSound">
+          <input id="enableReminderSound" type="checkbox" checked />
+          <span>
+            <strong>Sound alerts</strong>
+            <small>Play a chime when a reminder is due while this page is running.</small>
+          </span>
+        </label>
+
+        <button
+          class="btn btn-secondary btn-full"
+          id="testReminderSound"
+          type="button"
+        >
+          Test Sound
+        </button>
+
+        <button
+          class="btn btn-secondary btn-full"
+          id="testBrowserNotification"
+          type="button"
+        >
+          Test Browser Notification
+        </button>
+
+
+
+        <p class="form-help">
+          Allow browser notifications and keep this website open for reliable scheduled alerts.
+          Custom sound requires the page to be running and your browser to allow audio.
+          Alerts while the site is fully closed require a push server or scheduled backend.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- TOAST -->
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+  <!-- APPLICATION SCRIPTS -->
+  <script type="module" src="js/app.js"></script>
+
+  <!-- SERVICE WORKER REGISTRATION -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", async () => {
+        try {
+          const registration = await navigator.serviceWorker.register(
+            "./service-worker.js"
+          );
+          console.info("RemindMe Service Worker registered:", registration.scope);
+        } catch (error) {
+          console.error("Service Worker registration failed:", error);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

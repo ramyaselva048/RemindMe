@@ -1,0 +1,822 @@
+
+/* ==========================================
+   RemindMe - Responsive Design
+   Theme: Black + Gold
+   File: css/responsive.css
+========================================== */
+
+/* ---------- Global Responsive Fixes ---------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    min-width: 320px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    width: 100%;
+    min-width: 320px;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+    max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+    max-width: 100%;
+    font: inherit;
+}
+
+button {
+    touch-action: manipulation;
+}
+
+input,
+textarea,
+select {
+    min-width: 0;
+}
+
+/* ---------- Main App Layout ---------- */
+
+.app-container,
+.app-layout,
+.dashboard-layout {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.main-content,
+.dashboard-content,
+.content-area {
+    min-width: 0;
+    width: 100%;
+}
+
+/* ---------- Large Desktop: 1440px and Above ---------- */
+
+@media (min-width: 1440px) {
+    .app-container,
+    .app-layout {
+        max-width: 1800px;
+        margin-inline: auto;
+    }
+
+    .main-content,
+    .dashboard-content {
+        padding: 32px;
+    }
+
+    .dashboard-grid,
+    .stats-grid {
+        gap: 24px;
+    }
+
+    .calendar-day {
+        min-height: 110px;
+    }
+
+    .reminder-item {
+        padding: 20px;
+    }
+}
+
+/* ---------- Desktop and Laptop: 1025px–1439px ---------- */
+
+@media (min-width: 1025px) and (max-width: 1439px) {
+    .main-content,
+    .dashboard-content {
+        padding: 26px;
+    }
+
+    .calendar-day {
+        min-height: 90px;
+    }
+
+    .stats-grid {
+        gap: 16px;
+    }
+}
+
+/* ---------- Tablet and Smaller Laptop: 769px–1024px ---------- */
+
+@media (max-width: 1024px) {
+    .app-container,
+    .app-layout,
+    .dashboard-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .sidebar {
+        width: 100%;
+        max-width: none;
+    }
+
+    .main-content,
+    .dashboard-content,
+    .content-area {
+        width: 100%;
+        padding: 22px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .dashboard-main-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .calendar-panel,
+    .calendar-container {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .calendar-day {
+        min-height: 75px;
+        padding: 7px;
+    }
+
+    .calendar-day-number {
+        font-size: 0.9rem;
+    }
+
+    .calendar-event,
+    .calendar-reminder {
+        font-size: 0.7rem;
+    }
+
+    .header-content,
+    .topbar-content {
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .user-profile {
+        max-width: 100%;
+    }
+}
+
+/* ---------- Tablet Portrait: 481px–768px ---------- */
+
+@media (max-width: 768px) {
+    .main-content,
+    .dashboard-content,
+    .content-area {
+        padding: 18px;
+    }
+
+    /* Header */
+
+    .dashboard-header,
+    .main-header,
+    .topbar {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .header-left,
+    .header-right {
+        min-width: 0;
+    }
+
+    .header-right {
+        flex-wrap: wrap;
+    }
+
+    .page-title,
+    .dashboard-header h1 {
+        font-size: 1.6rem;
+        line-height: 1.3;
+        overflow-wrap: anywhere;
+    }
+
+    .page-subtitle {
+        font-size: 0.88rem;
+        line-height: 1.5;
+    }
+
+    /* Branding */
+
+    .logo,
+    .brand {
+        gap: 9px;
+    }
+
+    .logo-text,
+    .brand-name {
+        font-size: 1.15rem;
+    }
+
+    /* Dashboard Stats */
+
+    .stats-grid,
+    .dashboard-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .stat-card {
+        min-width: 0;
+        padding: 16px;
+    }
+
+    .stat-card h3,
+    .stat-value {
+        font-size: 1.45rem;
+        overflow-wrap: anywhere;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+    }
+
+    /* Panels */
+
+    .panel,
+    .dashboard-panel,
+    .calendar-panel,
+    .reminders-panel {
+        min-width: 0;
+        padding: 16px;
+    }
+
+    .panel-header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    /* Calendar */
+
+    .calendar-header {
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .calendar-title,
+    .calendar-header h2,
+    #monthTitle {
+        font-size: 1.15rem;
+    }
+
+    .calendar-navigation {
+        gap: 6px;
+    }
+
+    .calendar-navigation button,
+    .calendar-nav-button {
+        min-width: 36px;
+        min-height: 36px;
+    }
+
+    .calendar-grid,
+    .calendar-days,
+    #calendarDays {
+        min-width: 0;
+        gap: 3px;
+    }
+
+    .calendar-weekday,
+    .weekday {
+        padding: 8px 2px;
+        font-size: 0.72rem;
+    }
+
+    .calendar-day {
+        min-width: 0;
+        min-height: 68px;
+        padding: 5px 3px;
+        border-radius: 8px;
+    }
+
+    .calendar-day-number {
+        font-size: 0.8rem;
+    }
+
+    .calendar-day .reminder-dot,
+    .calendar-day .event-dot {
+        width: 5px;
+        height: 5px;
+    }
+
+    .calendar-day .calendar-event,
+    .calendar-day .calendar-reminder {
+        display: none;
+    }
+
+    /* Reminders */
+
+    .reminders-header {
+        align-items: flex-start;
+    }
+
+    .reminders-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .reminder-search,
+    #searchInput {
+        width: 100%;
+        max-width: none;
+    }
+
+    .reminder-item {
+        min-width: 0;
+    }
+
+    .reminder-title {
+        overflow-wrap: anywhere;
+    }
+
+    /* Modal */
+
+    .modal,
+    .modal-content,
+    .reminder-modal {
+        width: min(94vw, 560px);
+        max-width: 560px;
+        max-height: 88vh;
+        max-height: 88dvh;
+        overflow-y: auto;
+    }
+
+    /* Forms */
+
+    .form-row,
+    #reminderForm .form-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* Buttons */
+
+    .button-group,
+    .header-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}
+
+/* ---------- Mobile Phones: 320px–480px ---------- */
+
+@media (max-width: 480px) {
+    html,
+    body {
+        min-width: 320px;
+    }
+
+    .main-content,
+    .dashboard-content,
+    .content-area {
+        padding: 12px;
+    }
+
+    /* Header */
+
+    .dashboard-header,
+    .main-header,
+    .topbar {
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .page-title,
+    .dashboard-header h1 {
+        font-size: 1.35rem;
+    }
+
+    .page-subtitle {
+        font-size: 0.82rem;
+    }
+
+    .logo-icon,
+    .brand-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .logo-text,
+    .brand-name {
+        font-size: 1.05rem;
+    }
+
+    /* Sign-in Area */
+
+    .auth-area,
+    #authArea {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #googleSignInButton {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .user-profile {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .user-name,
+    #userName {
+        max-width: 130px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Dashboard Stats */
+
+    .stats-grid,
+    .dashboard-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .stat-card {
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .stat-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .stat-card h3,
+    .stat-value {
+        font-size: 1.25rem;
+    }
+
+    .stat-label {
+        font-size: 0.74rem;
+        line-height: 1.4;
+    }
+
+    /* Panels */
+
+    .panel,
+    .dashboard-panel,
+    .calendar-panel,
+    .reminders-panel {
+        padding: 12px;
+        border-radius: 13px;
+    }
+
+    .panel-title,
+    .panel-header h2 {
+        font-size: 1.05rem;
+    }
+
+    /* Calendar */
+
+    .calendar-header {
+        gap: 8px;
+    }
+
+    .calendar-header h2,
+    #monthTitle {
+        font-size: 1rem;
+    }
+
+    .calendar-navigation {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .calendar-navigation button,
+    .calendar-nav-button {
+        min-width: 32px;
+        min-height: 32px;
+        padding: 5px;
+    }
+
+    #todayButton,
+    .today-button {
+        padding: 7px 10px;
+        font-size: 0.76rem;
+    }
+
+    .calendar-grid,
+    .calendar-days,
+    #calendarDays {
+        gap: 2px;
+    }
+
+    .calendar-weekday,
+    .weekday {
+        padding: 7px 0;
+        font-size: 0.65rem;
+        text-align: center;
+    }
+
+    .calendar-day {
+        min-height: 52px;
+        padding: 4px 1px;
+        border-radius: 6px;
+    }
+
+    .calendar-day-number {
+        font-size: 0.72rem;
+    }
+
+    .calendar-day .reminder-dot,
+    .calendar-day .event-dot {
+        width: 4px;
+        height: 4px;
+        margin: 2px;
+    }
+
+    .calendar-day .calendar-event,
+    .calendar-day .calendar-reminder {
+        display: none;
+    }
+
+    /* Reminder Section */
+
+    .reminders-header h2,
+    #remindersHeading {
+        font-size: 1.08rem;
+    }
+
+    #remindersSubtitle {
+        font-size: 0.8rem;
+    }
+
+    .reminder-filters,
+    #reminderFilters {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .filter-button,
+    #reminderFilters button {
+        min-width: 0;
+        padding: 9px 5px;
+        font-size: 0.73rem;
+        white-space: normal;
+    }
+
+    .reminder-item {
+        gap: 9px;
+        padding: 12px;
+        border-radius: 11px;
+    }
+
+    .reminder-content {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .reminder-title {
+        font-size: 0.9rem;
+    }
+
+    .reminder-description {
+        font-size: 0.8rem;
+    }
+
+    .reminder-meta {
+        gap: 7px 9px;
+        font-size: 0.72rem;
+    }
+
+    .reminder-category {
+        padding: 4px 7px;
+        font-size: 0.68rem;
+    }
+
+    .reminder-actions {
+        gap: 4px;
+    }
+
+    .reminder-action-button,
+    .reminder-edit-button,
+    .reminder-delete-button {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Add Reminder Buttons */
+
+    #openReminderButton,
+    #emptyAddButton,
+    .add-reminder-button {
+        min-height: 40px;
+        padding: 10px 13px;
+        font-size: 0.82rem;
+    }
+
+    /* Modal */
+
+    .modal,
+    .modal-content,
+    .reminder-modal {
+        width: calc(100vw - 20px);
+        max-width: none;
+        max-height: 90vh;
+        max-height: 90dvh;
+        margin: 10px;
+        padding: 16px;
+        border-radius: 14px;
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        gap: 10px;
+    }
+
+    .modal-header h2,
+    .modal-title {
+        font-size: 1.15rem;
+    }
+
+    #reminderForm,
+    .reminder-form {
+        gap: 13px;
+    }
+
+    #reminderForm .form-row,
+    .form-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 13px;
+    }
+
+    #reminderForm input,
+    #reminderForm textarea,
+    #reminderForm select {
+        font-size: 16px;
+    }
+
+    .reminder-modal-actions,
+    .modal-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    #saveReminderButton,
+    #cancelModalButton,
+    #closeModalButton {
+        width: 100%;
+        padding: 11px 8px;
+        font-size: 0.82rem;
+    }
+
+    /* Toast */
+
+    .toast,
+    #toast {
+        right: 10px;
+        bottom: 12px;
+        left: 10px;
+        width: auto;
+        max-width: none;
+        font-size: 0.84rem;
+    }
+
+    /* Empty State */
+
+    .empty-state,
+    #remindersList .empty-state {
+        min-height: 180px;
+        padding: 20px 12px;
+    }
+
+    .empty-state-icon {
+        width: 52px;
+        height: 52px;
+        font-size: 1.5rem;
+    }
+
+    .empty-state h3 {
+        font-size: 0.95rem;
+    }
+
+    .empty-state p {
+        font-size: 0.8rem;
+    }
+}
+
+/* ---------- Extra Small Phones: 320px–360px ---------- */
+
+@media (max-width: 360px) {
+    .main-content,
+    .dashboard-content,
+    .content-area {
+        padding: 9px;
+    }
+
+    .stats-grid,
+    .dashboard-stats {
+        gap: 7px;
+    }
+
+    .stat-card {
+        padding: 10px;
+    }
+
+    .stat-card h3,
+    .stat-value {
+        font-size: 1.1rem;
+    }
+
+    .calendar-header {
+        align-items: flex-start;
+    }
+
+    .calendar-day {
+        min-height: 44px;
+    }
+
+    .calendar-day-number {
+        font-size: 0.68rem;
+    }
+
+    .filter-button,
+    #reminderFilters button {
+        font-size: 0.68rem;
+        padding: 8px 3px;
+    }
+
+    .reminder-item {
+        padding: 10px;
+    }
+
+    .reminder-actions {
+        flex-wrap: wrap;
+    }
+}
+
+/* ---------- Landscape Mobile ---------- */
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .modal,
+    .modal-content,
+    .reminder-modal {
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+
+    .calendar-day {
+        min-height: 42px;
+    }
+}
+
+/* ---------- Touchscreen Support ---------- */
+
+@media (hover: none) and (pointer: coarse) {
+    .reminder-action-button,
+    .reminder-edit-button,
+    .reminder-delete-button,
+    .calendar-navigation button,
+    .filter-button,
+    #reminderFilters button {
+        min-height: 40px;
+    }
+
+    .reminder-item:hover {
+        transform: none;
+    }
+}
+
+/* ---------- Reduced Motion Accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
