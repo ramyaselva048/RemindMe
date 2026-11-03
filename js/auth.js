@@ -1,6 +1,7 @@
 
 /* ==========================================
    RemindMe - Authentication
+   Google Authentication + OneSignal
    File: js/auth.js
 ========================================== */
 
@@ -63,6 +64,54 @@ function setLoginLoading(loading) {
             ? "Signing in..."
             : "Continue with Google";
     }
+}
+
+/* ---------- OneSignal User Linking ---------- */
+
+function linkOneSignalUser(user) {
+    if (!user?.uid) return;
+
+    if (!window.OneSignalDeferred) {
+        window.OneSignalDeferred = [];
+    }
+
+    window.OneSignalDeferred.push(async (OneSignal) => {
+        try {
+            await OneSignal.login(user.uid);
+
+            console.info(
+                "RemindMe: OneSignal user linked successfully."
+            );
+        } catch (error) {
+            console.error(
+                "RemindMe: OneSignal linking failed:",
+                error
+            );
+        }
+    });
+}
+
+/* ---------- OneSignal Logout ---------- */
+
+function unlinkOneSignalUser() {
+    if (!window.OneSignalDeferred) {
+        window.OneSignalDeferred = [];
+    }
+
+    window.OneSignalDeferred.push(async (OneSignal) => {
+        try {
+            await OneSignal.logout();
+
+            console.info(
+                "RemindMe: OneSignal user logged out."
+            );
+        } catch (error) {
+            console.error(
+                "RemindMe: OneSignal logout failed:",
+                error
+            );
+        }
+    });
 }
 
 /* ---------- Update Authentication UI ---------- */
@@ -147,6 +196,9 @@ async function handleGoogleSignIn() {
 
         updateAuthUI(result.user);
 
+        // Link the signed-in Firebase user to OneSignal.
+        linkOneSignalUser(result.user);
+
         showAuthMessage(
             `Welcome ${result.user.displayName || "back"}!`,
             "success"
@@ -159,25 +211,18 @@ async function handleGoogleSignIn() {
 
         if (error.code === "auth/popup-closed-by-user") {
             message = "Sign-in was cancelled.";
-        } else if (
-            error.code === "auth/popup-blocked"
-        ) {
+        } else if (error.code === "auth/popup-blocked") {
             message = "Allow popups for this website and try again.";
-        } else if (
-            error.code === "auth/unauthorized-domain"
-        ) {
+        } else if (error.code === "auth/unauthorized-domain") {
             message = "Add this website domain in Firebase Authentication settings.";
-        } else if (
-            error.code === "auth/operation-not-allowed"
-        ) {
+        } else if (error.code === "auth/operation-not-allowed") {
             message = "Enable Google sign-in in Firebase Authentication.";
-        } else if (
-            error.code === "auth/network-request-failed"
-        ) {
+        } else if (error.code === "auth/network-request-failed") {
             message = "Network error. Check your internet connection.";
         }
 
         showAuthMessage(message, "error");
+
     } finally {
         isSigningIn = false;
         setLoginLoading(false);
@@ -200,6 +245,9 @@ async function handleSignOut() {
     try {
         await signOut(auth);
 
+        // Disconnect the OneSignal external user.
+        unlinkOneSignalUser();
+
         updateAuthUI(null);
 
         showAuthMessage(
@@ -214,6 +262,7 @@ async function handleSignOut() {
             "Unable to sign out. Please try again.",
             "error"
         );
+
     } finally {
         isSigningOut = false;
 
@@ -252,20 +301,29 @@ export function initAuth() {
     }
 
     /*
-     * app.js dispatches this event when Firebase reports
-     * the current authentication state.
+     * Listen for Firebase authentication changes.
      */
     document.addEventListener(
         "remindme:auth-state-changed",
         (event) => {
-            updateAuthUI(event.detail?.user || null);
+            const user = event.detail?.user || null;
+
+            updateAuthUI(user);
+
+            if (user) {
+                linkOneSignalUser(user);
+            }
         }
     );
 
     /*
-     * Show the existing session if one is already available.
+     * Restore existing Firebase session.
      */
     updateAuthUI(auth.currentUser || null);
+
+    if (auth.currentUser) {
+        linkOneSignalUser(auth.currentUser);
+    }
 }
 
 /* ---------- Automatic Initialization ---------- */
